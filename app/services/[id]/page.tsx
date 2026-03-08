@@ -29,17 +29,17 @@ export default function ServiceDetailPage() {
     fetch();
   }, [id]);
 
-  if (loading) return <div className="p-8 text-center">Loading...</div>;
+  if (loading) return <div className="p-8 text-center text-white">Loading...</div>;
   if (error) return <div className="p-8 text-center text-red-600">{error}</div>;
   if (!service) return null;
 
   return (
-    <div className="min-h-screen bg-white px-4 py-8">
+    <div className="min-h-screen bg-black text-white px-4 py-8">
       <button onClick={() => router.back()} className="mb-4 text-amber-600 hover:underline">
         &larr; Back to services
       </button>
       <h1 className="text-4xl font-bold mb-4">{service.name}</h1>
-      <p className="text-gray-700 mb-6">{service.description}</p>
+      <p className="text-gray-300 mb-6">{service.description}</p>
       <p className="text-amber-600 font-bold text-2xl mb-6">${service.price}</p>
       <Link
         href={`/booking?serviceId=${service.id}`}

@@ -23,7 +23,7 @@ export function ServicesPreview() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <p className="text-xl text-gray-300 max-w-2xl mx-auto">
           From classic cuts to modern styling, we offer a complete range of premium salon services.
         </p>
       </div>
@@ -33,13 +33,13 @@ export function ServicesPreview() {
           <Link
             key={svc.id}
             href={`/services/${svc.id}`}
-            className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-shadow"
+            className="bg-gray-800 text-white rounded-lg p-6 hover:shadow-lg transition-shadow"
           >
             <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-amber-600 rounded-lg flex items-center justify-center mb-4">
               <Scissors className="w-6 h-6 text-black" />
             </div>
             <h3 className="text-xl font-semibold mb-2">{svc.name}</h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-300 mb-4">
               {svc.description?.slice(0, 100)}
             </p>
             <p className="text-2xl font-bold text-amber-600">${svc.price}</p>

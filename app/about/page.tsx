@@ -2,7 +2,7 @@
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white px-4 py-8 max-w-3xl mx-auto">
+    <div className="min-h-screen bg-black text-white px-4 py-8 max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">About Luxe & Trim</h1>
       <p className="mb-4">
         Luxe & Trim is a premium salon offering exceptional grooming and styling

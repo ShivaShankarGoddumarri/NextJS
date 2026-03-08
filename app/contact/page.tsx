@@ -2,7 +2,7 @@
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-white px-4 py-8 max-w-2xl mx-auto">
+    <div className="min-h-screen bg-black text-white px-4 py-8 max-w-2xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">Contact Us</h1>
       <p className="mb-4">Have questions or need assistance? Reach out to us.</p>
       <div className="space-y-4">

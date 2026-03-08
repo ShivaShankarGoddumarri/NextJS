@@ -74,7 +74,7 @@ export default function BookingPage() {
 
   return (
     <CustomerRoute>
-      <div className="min-h-screen bg-white px-4 py-8 max-w-2xl mx-auto">
+      <div className="min-h-screen bg-black text-white px-4 py-8 max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold mb-6">Book Appointment</h1>
         {!service ? (
           <div className="mb-6">
@@ -127,7 +127,7 @@ export default function BookingPage() {
                   className={`py-2 px-3 rounded-lg border ${
                     selectedTime === slot.time
                       ? 'bg-amber-500 text-black'
-                      : 'bg-gray-100 text-gray-800'
+                      : 'bg-gray-700 text-gray-300'
                   } ${!slot.available && 'opacity-50 cursor-not-allowed'}`}
                 >
                   {slot.time}

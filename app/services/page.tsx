@@ -33,7 +33,7 @@ export default function ServicesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-black text-white">
       <h1 className="text-3xl font-bold text-center py-8">Our Services</h1>
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {services.map((svc) => (

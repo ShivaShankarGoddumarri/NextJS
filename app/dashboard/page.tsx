@@ -41,7 +41,7 @@ export default function DashboardPage() {
 
   return (
     <CustomerRoute>
-      <div className="min-h-screen bg-white px-4 py-8">
+      <div className="min-h-screen bg-black text-white px-4 py-8">
         <h1 className="text-3xl font-bold mb-6">My Appointments</h1>
         {loading && <p>Loading...</p>}
         {error && <p className="text-red-600">{error}</p>}

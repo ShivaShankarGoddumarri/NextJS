@@ -37,7 +37,7 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 to-black px-4">
-      <div className="w-full max-w-md bg-white/90 backdrop-blur-md rounded-lg p-8 shadow-lg">
+      <div className="w-full max-w-md bg-black/70 backdrop-blur-md rounded-lg p-8 shadow-lg">
         <h2 className="text-2xl font-bold text-center mb-6">Create an Account</h2>
         {error && <div className="text-red-600 mb-4">{error}</div>}
         <form onSubmit={handleSubmit} className="space-y-4">

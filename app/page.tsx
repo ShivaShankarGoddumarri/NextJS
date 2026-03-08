@@ -5,7 +5,7 @@ import { Footer } from '@/components/footer';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-black text-white">
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-black via-gray-900 to-black text-white">
@@ -43,26 +43,26 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Award className="w-8 h-8 text-black" />
+                <Award className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Expert Stylists</h3>
               <p className="text-gray-600">Certified professionals with years of experience in premium grooming services.</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Clock className="w-8 h-8 text-black" />
+                <Clock className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Flexible Hours</h3>
               <p className="text-gray-600">Open 7 days a week with extended hours to fit your busy schedule.</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Star className="w-8 h-8 text-black" />
+                <Star className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Premium Quality</h3>
               <p className="text-gray-600">Only the finest products and techniques for exceptional results.</p>
@@ -72,7 +72,7 @@ export default function Home() {
       </section>
 
       {/* Services Preview */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-black text-white">
         <ServicesPreview />
       </section>
 

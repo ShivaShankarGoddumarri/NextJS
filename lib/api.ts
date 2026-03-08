@@ -51,18 +51,30 @@ export const authApi = {
 
     if (error) throw error;
 
-    // Create user profile
-    const { data: profile, error: profileError } = await supabase
-      .from('users')
-      .insert({
-        id: data.user?.id,
-        name: userData.name,
-        email: userData.email,
-        phone: userData.phone,
-        role: 'customer',
-      })
-      .select()
-      .single();
+    // compute password hash locally so we can keep the same schema as backend
+    // use bcryptjs which matches backend passlib's bcrypt
+    import('bcryptjs').then(async (bcrypt) => {
+      const hash = bcrypt.hashSync(userData.password, 10);
+
+      // Create user profile
+      const { data: profile, error: profileError } = await supabase
+        .from('users')
+        .insert({
+          id: data.user?.id,
+          name: userData.name,
+          email: userData.email,
+          phone: userData.phone,
+          role: 'customer',
+          password_hash: hash,
+        })
+        .select()
+        .single();
+
+      if (profileError) throw profileError;
+      return profile as User;
+    });
+
+    // note: TypeScript will complain about return inside async import, so refactor below instead
 
     if (profileError) throw profileError;
     return profile as User;
