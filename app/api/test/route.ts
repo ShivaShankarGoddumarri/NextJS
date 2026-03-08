@@ -1,32 +1,31 @@
 import { NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
-import { PrismaLibSQL } from '@prisma/adapter-libsql'
-import { createClient } from '@libsql/client'
-
-const libsql = createClient({
-  url: process.env.DATABASE_URL!,
-})
-
-const adapter = new PrismaLibSQL(libsql)
-const prisma = new PrismaClient({ adapter })
+import { supabase } from '@/lib/supabase'
 
 export async function GET() {
   try {
-    // Test database connection and create a test user
-    await prisma.$connect()
+    // Test Supabase connection by fetching from a table
+    const { data, error } = await supabase
+      .from('users')
+      .select('*')
+      .limit(1)
 
-    const user = await prisma.user.create({
-      data: {
-        email: `test${Date.now()}@example.com`,
-        name: 'Test User',
-      },
+    if (error) {
+      console.error('Supabase error:', error)
+      return NextResponse.json(
+        { error: 'Database connection failed', details: error.message },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json({
+      message: 'Supabase connected successfully',
+      data,
     })
-
-    return NextResponse.json({ message: 'Database connected successfully', user })
   } catch (error) {
-    console.error(error)
-    return NextResponse.json({ error: 'Database operation failed' }, { status: 500 })
-  } finally {
-    await prisma.$disconnect()
+    console.error('Error:', error)
+    return NextResponse.json(
+      { error: 'Database operation failed' },
+      { status: 500 }
+    )
   }
 }
