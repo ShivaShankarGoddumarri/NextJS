@@ -26,25 +26,47 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // global rejection handler for better debugging
     const unhandled = (e: PromiseRejectionEvent) => {
-      console.error('Unhandled promise rejection:', e.reason);
+      console.warn('Global unhandledrejection event:', e);
+      try {
+        const reason = e.reason;
+        if (reason instanceof Error) {
+          console.error('Unhandled promise rejection:', reason.message, reason.stack);
+        } else {
+          console.error('Unhandled promise rejection:', JSON.stringify(reason, Object.getOwnPropertyNames(reason), 2));
+        }
+      } catch (err) {
+        console.error('Unhandled promise rejection (failed to stringify):', e.reason, err);
+      }
     };
     window.addEventListener('unhandledrejection', unhandled);
+
+    // global error handler
+    const onError = (msg: string | Event, src?: string, lineno?: number, colno?: number, error?: Error) => {
+      console.error('Global window.onerror:', { msg, src, lineno, colno, error });
+    };
+    window.addEventListener('error', onError);
 
     // Listen for auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        if (event === 'SIGNED_IN' && session?.user) {
-          await loadUserProfile(session.user.id);
-        } else if (event === 'SIGNED_OUT') {
-          setUser(null);
+        try {
+          if (event === 'SIGNED_IN' && session?.user) {
+            await loadUserProfile(session.user.id);
+          } else if (event === 'SIGNED_OUT') {
+            setUser(null);
+          }
+        } catch (err) {
+          console.error('Error in auth state callback:', err);
+        } finally {
+          setLoading(false);
         }
-        setLoading(false);
       }
     );
 
     return () => {
       subscription.unsubscribe();
       window.removeEventListener('unhandledrejection', unhandled);
+      window.removeEventListener('error', onError);
     };
   }, []);
 

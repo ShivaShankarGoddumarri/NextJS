@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     smtp_password: Optional[str] = None
 
     class Config:
-        env_file = ".env"
+        # load .env.local for local development (same as Next.js)
+        env_file = ".env.local"
+        extra = "ignore"  # ignore unrelated env vars (like NEXT_PUBLIC_...)
 
 settings = Settings()
