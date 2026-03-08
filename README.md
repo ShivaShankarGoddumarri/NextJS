@@ -60,6 +60,11 @@ This repository powers a full-stack salon booking platform with:
    DATABASE_URL=postgresql://postgres:[password]@db.your-project.supabase.co:5432/postgres
    ```
 3. Initialize your database tables (see `backend/create_tables.py` or use Supabase SQL).
+   - **Important:** the `users` table used for profiles includes a `password_hash` column. When registering via Supabase, a value is now hashed on the client and inserted so the column never ends up null. If you already created the table earlier, run this SQL to relax the constraint:
+     ```sql
+     ALTER TABLE users ALTER COLUMN password_hash DROP NOT NULL;
+     ```
+     You can generate hashes later with the backend or allow users to re‑register.
 4. Run development server:
    ```bash
    npm run dev

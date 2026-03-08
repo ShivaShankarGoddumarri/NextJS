@@ -102,7 +102,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await authApi.login(credentials);
       setUser(response.user);
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('Login error:', error, JSON.stringify(error));
       throw error;
     } finally {
       setLoading(false);
@@ -115,7 +115,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const user = await authApi.register(userData);
       setUser(user);
     } catch (error) {
-      console.error('Registration error:', error);
+      console.error('Registration error:', error, JSON.stringify(error));
       throw error;
     } finally {
       setLoading(false);

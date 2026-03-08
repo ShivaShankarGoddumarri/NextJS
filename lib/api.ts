@@ -17,6 +17,11 @@ import {
   RegisterForm
 } from '@/app/types';
 
+// bcryptjs used for hashing on client so that the profile insert can include
+// a password_hash compatible with the backend.  this keeps the supabase
+// users table schema aligned with the FastAPI model.
+import bcrypt from 'bcryptjs';
+
 // Auth API
 export const authApi = {
   async login(credentials: LoginForm): Promise<AuthResponse> {
@@ -51,30 +56,29 @@ export const authApi = {
 
     if (error) throw error;
 
-    // compute password hash locally so we can keep the same schema as backend
-    // use bcryptjs which matches backend passlib's bcrypt
-    import('bcryptjs').then(async (bcrypt) => {
-      const hash = bcrypt.hashSync(userData.password, 10);
+    // compute bcrypt hash on client so that our users table still has a
+    // password_hash value (non-nullable in schema). we use the same salt rounds
+    // as the backend (bcrypt default 10) which keeps verify_password working if
+    // backend login is ever used.
+    const hash = bcrypt.hashSync(userData.password, 10);
 
-      // Create user profile
-      const { data: profile, error: profileError } = await supabase
-        .from('users')
-        .insert({
-          id: data.user?.id,
-          name: userData.name,
-          email: userData.email,
-          phone: userData.phone,
-          role: 'customer',
-          password_hash: hash,
-        })
-        .select()
-        .single();
+    // Create user profile
+    const { data: profile, error: profileError } = await supabase
+      .from('users')
+      .insert({
+        id: data.user?.id,
+        name: userData.name,
+        email: userData.email,
+        phone: userData.phone,
+        role: 'customer',
+        password_hash: hash,
+      })
+      .select()
+      .single();
 
-      if (profileError) throw profileError;
-      return profile as User;
-    });
-
-    // note: TypeScript will complain about return inside async import, so refactor below instead
+    if (profileError) throw profileError;
+    return profile as User;
+  },
 
     if (profileError) throw profileError;
     return profile as User;
